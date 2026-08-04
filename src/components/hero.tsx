@@ -11,6 +11,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
+// TODO: Migrate to using SimpleIcons
 export default function Hero() {
   const contactLinks: {
     Icon: React.ComponentType<{ size: number; strokeWidth: number }>;
@@ -56,13 +57,13 @@ export default function Hero() {
             </li>
             <li>Avid believer in simplicity</li>
             <li>
-              Currently growing my startup,{" "}
+              Currently building a{" "}
               <a
-                href="https://apps.apple.com/us/app/flux-student-startup-network/id6742727564"
+                href="https://rehatsingh.com/marc"
                 target="_blank"
                 rel="noreferrer"
               >
-                Flux
+                professional context layer for AI agents
               </a>
             </li>
           </ul>
