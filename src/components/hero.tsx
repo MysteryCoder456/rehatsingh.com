@@ -51,11 +51,8 @@ export default function Hero() {
               Computer Science + Data Science @{" "}
               <a href="https://wisc.edu">UW-Madison</a> at Madison, WI
             </li>
-            <li>
-              Fullstack engineer and entrepreneur, interested in distributed
-              systems
-            </li>
-            <li>Avid believer in simplicity</li>
+            <li>Fullstack engineer and indie hacker</li>
+            <li>Avid believer in simplicity and intentional design</li>
             <li>
               Currently building a{" "}
               <a
