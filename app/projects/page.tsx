@@ -34,7 +34,7 @@ async function ProjectsGrid() {
 
 export default function Projects() {
   return (
-    <main className="h-full flex flex-col gap-8">
+    <main>
       <section>
         <h1 className="mb-2">Projects</h1>
         <p className="text-muted mb-8">

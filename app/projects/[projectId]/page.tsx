@@ -27,7 +27,7 @@ export default async function ProjectDetails({
     <>
       <FloatingBallBackground colors={project.colors} />
 
-      <main className="h-full flex flex-col gap-8">
+      <main>
         <section className="flex flex-row max-h-44 justify-stretch">
           <div className="gap-4 flex flex-col flex-1">
             <div>

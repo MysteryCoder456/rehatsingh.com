@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     "Programmer",
     "Fullstack",
     "Backend",
+    "Engineer",
     "Student",
     "Computer Science",
   ],
@@ -57,6 +58,7 @@ export const viewport: Viewport = {
 const navBarItems: { name: string; href: string; newTab?: boolean }[] = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
+  { name: "Blog", href: "/blog" },
   {
     name: "Resume",
     href: "https://docs.rehatsingh.com/resume.pdf",

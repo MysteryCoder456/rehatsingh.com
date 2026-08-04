@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <WhatsGoingOn />
 
-      <main className="h-full flex flex-col gap-8">
+      <main>
         <section className="h-lvh -mt-18">
           <Hero />
         </section>
