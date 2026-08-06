@@ -158,11 +158,11 @@
   }
 
   ul {
-    @apply list-disc;
+    @apply list-disc list-inside;
   }
 
   ol {
-    @apply list-decimal;
+    @apply list-decimal list-inside;
   }
 
   main {

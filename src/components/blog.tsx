@@ -3,6 +3,7 @@ import { Skeleton } from "./ui/skeleton";
 
 export function BlogPostPreview({ post }: { post: BlogPost }) {
   const bodyPreview = post.body?.[0].children?.map((c) => c.text).join(" ");
+  const postUrl = post.slug?.current ? `/blog/${post.slug.current}` : "/blog/#";
 
   return (
     <section>
@@ -13,8 +14,7 @@ export function BlogPostPreview({ post }: { post: BlogPost }) {
       ) : (
         <p className="text-muted italic">No Preview Available</p>
       )}
-      <a href="/" className="text-muted">
-        {/* TODO: add link to full blog post */}
+      <a href={postUrl} className="text-muted">
         Read more
       </a>
     </section>
