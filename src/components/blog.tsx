@@ -9,16 +9,14 @@ export function BlogPostPreview({ post }: { post: BlogPost }) {
       <h2>{post.title}</h2>
       <p className="text-muted">{post.subtitle}</p>
       {bodyPreview ? (
-        <p>
-          {bodyPreview}{" "}
-          <a href="/" className="text-muted">
-            {/* TODO: add link to full blog post */}
-            Read more
-          </a>
-        </p>
+        <p>{bodyPreview} </p>
       ) : (
         <p className="text-muted italic">No Preview Available</p>
       )}
+      <a href="/" className="text-muted">
+        {/* TODO: add link to full blog post */}
+        Read more
+      </a>
     </section>
   );
 }
