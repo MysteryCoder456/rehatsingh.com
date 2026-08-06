@@ -1,24 +1,17 @@
 import { Suspense } from "react";
+import { BlogPostPreview, BlogPostSkeleton } from "@/components/blog";
 import { fetchBlogPosts } from "@/sanity/blog";
 
 async function BlogPostsList() {
   const posts = await fetchBlogPosts();
 
-  return posts.map((post) => {
-    const bodyPreview = post.body?.[0].children?.map((c) => c.text).join(" ");
-
-    return (
-      <section key={post._id}>
-        <h2>{post.title}</h2>
-        <p className="text-muted">{post.subtitle}</p>
-        {bodyPreview ? (
-          <p>{bodyPreview}</p>
-        ) : (
-          <p className="text-muted italic">No Preview Available</p>
-        )}
-      </section>
-    );
-  });
+  return (
+    <>
+      {posts.map((post) => (
+        <BlogPostPreview key={post._id} post={post} />
+      ))}
+    </>
+  );
 }
 
 export default function Blog() {
@@ -32,10 +25,7 @@ export default function Blog() {
       </section>
 
       <Suspense
-        fallback={
-          // TODO: add a suspense block
-          <p>Loading...</p>
-        }
+        fallback={[...Array(3).keys()].map((i) => <BlogPostSkeleton key={i} />)}
       >
         <BlogPostsList />
       </Suspense>
