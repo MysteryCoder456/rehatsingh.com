@@ -4,21 +4,21 @@ import { fetchBlogPosts } from "@/sanity/blog";
 async function BlogPostsList() {
   const posts = await fetchBlogPosts();
 
-  return (
-    <>
-      {posts.map((post) => {
-        const bodyPreview = "Sneak Peak"; // TODO: extract a preview from body
+  return posts.map((post) => {
+    const bodyPreview = post.body?.[0].children?.map((c) => c.text).join(" ");
 
-        return (
-          <section key={post._id}>
-            <h2>{post.title}</h2>
-            <p className="text-muted">{post.subtitle}</p>
-            <p>{bodyPreview}</p>
-          </section>
-        );
-      })}
-    </>
-  );
+    return (
+      <section key={post._id}>
+        <h2>{post.title}</h2>
+        <p className="text-muted">{post.subtitle}</p>
+        {bodyPreview ? (
+          <p>{bodyPreview}</p>
+        ) : (
+          <p className="text-muted italic">No Preview Available</p>
+        )}
+      </section>
+    );
+  });
 }
 
 export default function Blog() {
