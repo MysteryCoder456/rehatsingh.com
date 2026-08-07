@@ -8,13 +8,17 @@ export function BlogPostPreview({ post }: { post: BlogPost }) {
 
   return (
     <section>
-      <h2 className="flex flex-row gap-2 items-center">
-        <a href={postUrl} className="no-underline hover:underline">
-          {post.title}
-        </a>
-        <Link className="text-muted" />
+      <h2>
+        <div className="flex flex-row gap-2 items-center hover:text-primary hover:-translate-y-1 transition-all">
+          <a href={postUrl} className="no-underline">
+            {post.title}
+          </a>
+          <Link className="text-muted" />
+        </div>
       </h2>
+
       <p className="text-muted">{post.subtitle}</p>
+
       {bodyPreview ? (
         <p>{bodyPreview} </p>
       ) : (
