@@ -1,3 +1,4 @@
+import { Link } from "lucide-react";
 import type { BlogPost } from "@/sanity/types";
 import { Skeleton } from "./ui/skeleton";
 
@@ -7,16 +8,18 @@ export function BlogPostPreview({ post }: { post: BlogPost }) {
 
   return (
     <section>
-      <h2>{post.title}</h2>
+      <h2 className="flex flex-row gap-2 items-center">
+        <a href={postUrl} className="no-underline hover:underline">
+          {post.title}
+        </a>
+        <Link className="text-muted" />
+      </h2>
       <p className="text-muted">{post.subtitle}</p>
       {bodyPreview ? (
         <p>{bodyPreview} </p>
       ) : (
         <p className="text-muted italic">No Preview Available</p>
       )}
-      <a href={postUrl} className="text-muted">
-        Read more
-      </a>
     </section>
   );
 }
