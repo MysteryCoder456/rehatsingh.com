@@ -17,7 +17,7 @@ const headingConfig = [
   "w-14 ml-4", // h3
   "w-12 ml-6", // h4
   "w-10 ml-8", // h5
-  "w-8 ml-10", // h6
+  "w-8  ml-10", // h6
 ];
 
 export function Headings({ headings }: { headings: HeadingItem[] }) {
@@ -39,7 +39,7 @@ export function Headings({ headings }: { headings: HeadingItem[] }) {
                 />
               </a>
             </TooltipTrigger>
-            <TooltipContent side="right">{h.text}</TooltipContent>
+            <TooltipContent side="left">{h.text}</TooltipContent>
           </Tooltip>
         );
       })}

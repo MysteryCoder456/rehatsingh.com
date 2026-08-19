@@ -132,7 +132,7 @@ export default function RootLayout({
 
             <AppearanceSwitcher />
 
-            <div className="hidden lg:flex fixed top-0 left-0 h-screen w-1/6 2xl:w-1/4 flex-col justify-center items-center">
+            <div className="hidden lg:flex fixed top-0 right-0 h-screen w-1/6 2xl:w-1/4 flex-col justify-center items-center">
               {sidebar}
             </div>
 
