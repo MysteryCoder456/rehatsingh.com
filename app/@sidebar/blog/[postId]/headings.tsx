@@ -1,3 +1,8 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 export type HeadingItem = {
@@ -20,18 +25,22 @@ export function Headings({ headings }: { headings: HeadingItem[] }) {
     <div className={cn("text-muted flex flex-col")}>
       {headings.map((h) => {
         return (
-          <a
-            href={`#heading-${h.key}`}
-            key={h.text}
-            className="group px-2 py-1 no-underline"
-          >
-            <div
-              className={cn(
-                "text-[4px] h-1 bg-muted rounded-md transition-opacity ease-out duration-300 opacity-25 group-hover:opacity-60",
-                headingConfig[h.level - 1],
-              )}
-            />
-          </a>
+          <Tooltip key={h.key}>
+            <TooltipTrigger asChild>
+              <a
+                href={`#heading-${h.key}`}
+                className="group px-2 py-1 no-underline"
+              >
+                <div
+                  className={cn(
+                    "text-[4px] h-1 bg-muted rounded-md transition-opacity ease-out duration-300 opacity-25 group-hover:opacity-60",
+                    headingConfig[h.level - 1],
+                  )}
+                />
+              </a>
+            </TooltipTrigger>
+            <TooltipContent side="right">{h.text}</TooltipContent>
+          </Tooltip>
         );
       })}
     </div>
