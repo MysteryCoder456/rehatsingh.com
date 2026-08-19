@@ -24,7 +24,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rehatbir Singh",
+  metadataBase: new URL("https://rehatsingh.com"),
+  title: {
+    template: "%s — Rehatbir Singh",
+    default: "Rehatbir Singh",
+  },
   description: "Student at UW-Madison, fullstack engineer, and avid learner.",
   authors: [{ name: "Rehatbir Singh" }],
   keywords: [
@@ -38,16 +42,15 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    url: "https://rehatsingh.com",
     title: "Rehatbir Singh",
     description: "Student at UW-Madison, fullstack engineer, and avid learner.",
-    images: { url: "https://rehatsingh.com/images/pingy.png" },
+    images: { url: "/images/pingy.png" },
   },
   twitter: {
     card: "summary_large_image",
     title: "Rehatbir Singh",
     description: "Student at UW-Madison, fullstack engineer, and avid learner.",
-    images: { url: "https://rehatsingh.com/images/pingy.png" },
+    images: { url: "/images/pingy.png" },
   },
 };
 

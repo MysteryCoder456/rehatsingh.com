@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { PortableText, type PortableTextReactComponents } from "next-sanity";
 import { fetchBlogPost } from "@/sanity/blog";
+
+type BlogPostDetailsProps = {
+  params: Promise<{ postId: string }>;
+};
 
 const headingId = (key?: string) => `heading-${key}`;
 
@@ -14,11 +19,35 @@ const components: Partial<PortableTextReactComponents> = {
   },
 };
 
+export async function generateMetadata({
+  params,
+}: BlogPostDetailsProps): Promise<Metadata> {
+  const postId = (await params).postId;
+  const post = await fetchBlogPost(postId);
+
+  return {
+    title: post.title,
+    description: post.subtitle,
+    authors: [{ name: "Rehatbir Singh" }],
+    openGraph: {
+      type: "article",
+      url: `/blog/${postId}`,
+      title: post.title,
+      description: post.subtitle,
+      images: { url: "/images/pingy.png" },
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.subtitle,
+      images: { url: "/images/pingy.png" },
+    },
+  };
+}
+
 export default async function BlogPostDetails({
   params,
-}: {
-  params: Promise<{ postId: string }>;
-}) {
+}: BlogPostDetailsProps) {
   const dateFormatter = Intl.DateTimeFormat(undefined, {
     dateStyle: "long",
     timeStyle: "short",
