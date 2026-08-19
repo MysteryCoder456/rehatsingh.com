@@ -73,8 +73,10 @@ const navBarItems: { name: string; href: string; newTab?: boolean }[] = [
 
 export default function RootLayout({
   children,
+  sidebar,
 }: Readonly<{
   children: React.ReactNode;
+  sidebar: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -124,6 +126,10 @@ export default function RootLayout({
           </NavigationMenu>
 
           <AppearanceSwitcher />
+
+          <div className="hidden lg:flex fixed top-0 left-0 h-screen w-1/6 2xl:w-1/4 flex-col justify-center items-center">
+            {sidebar}
+          </div>
 
           {/* Create a responsive center element for main content */}
           <div className="grid grid-cols-12">
