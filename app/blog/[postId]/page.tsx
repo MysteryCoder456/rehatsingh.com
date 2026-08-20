@@ -1,21 +1,46 @@
 import type { Metadata } from "next";
 import { PortableText, type PortableTextReactComponents } from "next-sanity";
+import { blogHeadingId } from "@/lib/utils";
 import { fetchBlogPost } from "@/sanity/blog";
 
 type BlogPostDetailsProps = {
   params: Promise<{ postId: string }>;
 };
 
-const headingId = (key?: string) => `heading-${key}`;
+const headingClassName = "blog-heading";
 
 const components: Partial<PortableTextReactComponents> = {
   block: {
-    h1: ({ children, value }) => <h1 id={headingId(value._key)}>{children}</h1>,
-    h2: ({ children, value }) => <h2 id={headingId(value._key)}>{children}</h2>,
-    h3: ({ children, value }) => <h3 id={headingId(value._key)}>{children}</h3>,
-    h4: ({ children, value }) => <h4 id={headingId(value._key)}>{children}</h4>,
-    h5: ({ children, value }) => <h5 id={headingId(value._key)}>{children}</h5>,
-    h6: ({ children, value }) => <h6 id={headingId(value._key)}>{children}</h6>,
+    h1: ({ children, value }) => (
+      <h1 className={headingClassName} id={blogHeadingId(value._key)}>
+        {children}
+      </h1>
+    ),
+    h2: ({ children, value }) => (
+      <h2 className={headingClassName} id={blogHeadingId(value._key)}>
+        {children}
+      </h2>
+    ),
+    h3: ({ children, value }) => (
+      <h3 className={headingClassName} id={blogHeadingId(value._key)}>
+        {children}
+      </h3>
+    ),
+    h4: ({ children, value }) => (
+      <h4 className={headingClassName} id={blogHeadingId(value._key)}>
+        {children}
+      </h4>
+    ),
+    h5: ({ children, value }) => (
+      <h5 className={headingClassName} id={blogHeadingId(value._key)}>
+        {children}
+      </h5>
+    ),
+    h6: ({ children, value }) => (
+      <h6 className={headingClassName} id={blogHeadingId(value._key)}>
+        {children}
+      </h6>
+    ),
   },
 };
 
