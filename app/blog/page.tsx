@@ -20,7 +20,8 @@ export default function Blog() {
       <section>
         <h1 className="mb-2">Blogs</h1>
         <p className="text-muted">
-          My unfiltered thoughts about life and current affairs in tech.
+          My unfiltered thoughts about my life, hobbies, and current affairs in
+          tech.
         </p>
       </section>
 
