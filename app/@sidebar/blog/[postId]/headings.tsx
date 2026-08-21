@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -24,17 +24,51 @@ const headingConfig = [
 ];
 
 export function Headings({ headings }: { headings: HeadingItem[] }) {
-  const [currentHeadingId, setCurrentHeadingId] = useState<string>();
+  const [visibleHeadings, setVisibleHeadings] = useState<
+    Record<string, number | undefined>
+  >({});
+
+  const firstVisibleHeadingId = useMemo<string | undefined>(() => {
+    const visibleHeadingEntries = Object.entries(visibleHeadings);
+
+    if (visibleHeadingEntries.length <= 0) return undefined;
+    const firstHeading = visibleHeadingEntries
+      .filter(([_, p]) => !!p)
+      .reduce(
+        (min, curr) => {
+          // biome-ignore lint/style/noNonNullAssertion: filtered for undefined
+          if (min[1]! > curr[1]!) return curr;
+          return min;
+        },
+        ["", Infinity],
+      );
+
+    return firstHeading[0];
+  }, [visibleHeadings]);
 
   const observerCallback: IntersectionObserverCallback = useCallback(
     (entries, _observer) => {
-      const visibleHeadings = entries
-        .filter((e) => e.isIntersecting)
-        .sort((a, b) => a.boundingClientRect.y - b.boundingClientRect.y);
+      const updatedHeadings = entries
+        .map<[IntersectionObserverEntry, number]>((e) => [
+          e,
+          window.pageYOffset + e.boundingClientRect.y,
+        ])
+        .map<[string, number | undefined]>(([e, p]) => [
+          e.target.id,
+          e.isIntersecting ? p : undefined,
+        ])
+        .reduce(
+          (acc, [key, value]) => {
+            acc[key] = value;
+            return acc;
+          },
+          {} as Record<string, number | undefined>,
+        );
 
-      if (visibleHeadings.length === 0) return;
-      const firstHeading = visibleHeadings[0].target.id;
-      setCurrentHeadingId(firstHeading);
+      setVisibleHeadings((current) => {
+        const newHeadings = { ...current, ...updatedHeadings };
+        return newHeadings;
+      });
     },
     [],
   );
@@ -70,7 +104,9 @@ export function Headings({ headings }: { headings: HeadingItem[] }) {
                   className={cn(
                     "text-[4px] h-1 rounded-md transition-opacity ease-out duration-300 opacity-25 group-hover:opacity-60",
                     headingConfig[h.level - 1],
-                    currentHeadingId === headingId ? "bg-primary" : "bg-muted",
+                    firstVisibleHeadingId === headingId
+                      ? "bg-primary"
+                      : "bg-muted",
                   )}
                 />
               </a>
