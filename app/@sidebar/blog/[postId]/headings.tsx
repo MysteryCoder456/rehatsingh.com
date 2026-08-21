@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -24,49 +24,35 @@ const headingConfig = [
 ];
 
 export function Headings({ headings }: { headings: HeadingItem[] }) {
-  const [visibleHeadings, setVisibleHeadings] = useState<
-    Record<string, number | undefined>
-  >({});
-
-  const firstVisibleHeadingId = useMemo<string | undefined>(() => {
-    const visibleHeadingEntries = Object.entries(visibleHeadings);
-
-    if (visibleHeadingEntries.length <= 0) return undefined;
-    const firstHeading = visibleHeadingEntries
-      .filter(([_, p]) => !!p)
-      .reduce(
-        (min, curr) => {
-          // biome-ignore lint/style/noNonNullAssertion: filtered for undefined
-          if (min[1]! > curr[1]!) return curr;
-          return min;
-        },
-        ["", Infinity],
-      );
-
-    return firstHeading[0];
-  }, [visibleHeadings]);
+  const [visibleHeadings, setVisibleHeadings] = useState<[string, number][]>(
+    [],
+  );
 
   const observerCallback: IntersectionObserverCallback = useCallback(
     (entries, _observer) => {
-      const updatedHeadings = entries
-        .map<[IntersectionObserverEntry, number]>((e) => [
+      const changedHeadings = entries.map<[IntersectionObserverEntry, number]>(
+        (e) => [
           e,
-          window.pageYOffset + e.boundingClientRect.y,
-        ])
-        .map<[string, number | undefined]>(([e, p]) => [
-          e.target.id,
-          e.isIntersecting ? p : undefined,
-        ])
-        .reduce(
-          (acc, [key, value]) => {
-            acc[key] = value;
-            return acc;
-          },
-          {} as Record<string, number | undefined>,
-        );
+          window.pageYOffset + e.boundingClientRect.y, // absolute document position
+        ],
+      );
 
       setVisibleHeadings((current) => {
-        const newHeadings = { ...current, ...updatedHeadings };
+        const newHeadings = [...current];
+
+        for (const [e, p] of changedHeadings) {
+          if (e.isIntersecting) {
+            // Insertion-sort-insert now visible headings
+            let i = 0;
+            while (i < newHeadings.length && p >= newHeadings[i][1]) i++;
+            newHeadings.splice(i, 0, [e.target.id, p]);
+          } else {
+            // Remove now non-visible headings
+            const i = newHeadings.findIndex(([id, _]) => id === e.target.id);
+            if (i > -1) newHeadings.splice(i, 1);
+          }
+        }
+
         return newHeadings;
       });
     },
@@ -104,7 +90,8 @@ export function Headings({ headings }: { headings: HeadingItem[] }) {
                   className={cn(
                     "text-[4px] h-1 rounded-md transition-opacity ease-out duration-300 opacity-25 group-hover:opacity-60",
                     headingConfig[h.level - 1],
-                    firstVisibleHeadingId === headingId
+                    visibleHeadings.length > 0 &&
+                      visibleHeadings[0][0] === headingId
                       ? "bg-primary"
                       : "bg-muted",
                   )}
