@@ -1,17 +1,32 @@
+import { NewspaperIcon } from "lucide-react";
 import { Suspense } from "react";
 import { BlogPostPreview, BlogPostSkeleton } from "@/components/blog";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { fetchBlogPosts } from "@/sanity/blog";
 
 async function BlogPostsList() {
   const posts = await fetchBlogPosts();
 
-  return (
-    <>
-      {posts.map((post) => (
-        <BlogPostPreview key={post._id} post={post} />
-      ))}
-    </>
-  );
+  if (posts.length <= 0)
+    return (
+      <Empty>
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <NewspaperIcon />
+          </EmptyMedia>
+          <EmptyTitle>No Posts Yet</EmptyTitle>
+          <EmptyDescription>Check back later!</EmptyDescription>
+        </EmptyHeader>
+      </Empty>
+    );
+
+  return posts.map((post) => <BlogPostPreview key={post._id} post={post} />);
 }
 
 export default function Blog() {
