@@ -94,7 +94,7 @@ export default async function BlogPostDetails({
       <hr />
 
       <div className="flex flex-col gap-4">
-        <PortableText value={post.body} components={components} />
+        <PortableText value={post.body ?? []} components={components} />
       </div>
     </main>
   );

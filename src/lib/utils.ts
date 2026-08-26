@@ -5,4 +5,4 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const blogHeadingId = (key?: string) => `blog-heading-${key}`;
+export const blogHeadingId = (key: string) => `blog-heading-${key}`;

@@ -13,9 +13,15 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
 
 export async function fetchBlogPost(postId: string): Promise<BlogPost> {
   const query = groq`*[_type == "blogPost" && defined(slug.current) && slug.current == $postId][0]`;
-  return await client.fetch<BlogPost>(
+  const post = await client.fetch<BlogPost | null>(
     query,
     { postId },
     { next: { revalidate: 60 } },
   );
+
+  if (!post) {
+    throw new Error(`Blog post not found for slug: ${postId}`);
+  }
+
+  return post;
 }
