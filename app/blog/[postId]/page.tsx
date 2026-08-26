@@ -1,7 +1,10 @@
+import { getImageDimensions } from "@sanity/asset-utils";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PortableText, type PortableTextReactComponents } from "next-sanity";
 import { blogHeadingId } from "@/lib/utils";
 import { fetchBlogPost } from "@/sanity/blog";
+import { urlFor } from "@/sanity/utils";
 
 type BlogPostDetailsProps = {
   params: Promise<{ postId: string }>;
@@ -41,6 +44,31 @@ const components: Partial<PortableTextReactComponents> = {
         {children}
       </h6>
     ),
+  },
+  types: {
+    image: ({ value, isInline }) => {
+      const { width, height, aspectRatio } = getImageDimensions(value);
+      const imageUrl = urlFor(value)?.url();
+      console.log(value);
+
+      if (!imageUrl) return;
+      return (
+        <div className="mx-24 my-4">
+          <Image
+            src={imageUrl}
+            alt={value.alt || "Image"}
+            width={width}
+            height={height}
+            className="rounded-lg"
+            id={`blog-image-${value._key}`}
+            style={{
+              display: isInline ? "inline-block" : "block",
+              aspectRatio: aspectRatio,
+            }}
+          />
+        </div>
+      );
+    },
   },
 };
 
