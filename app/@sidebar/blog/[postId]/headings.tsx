@@ -83,7 +83,7 @@ export function Headings({ headings }: { headings: HeadingItem[] }) {
           <Tooltip key={h.key}>
             <TooltipTrigger asChild>
               <a
-                href={`#${headingId}`}
+                href={headingId ? `#${headingId}` : undefined}
                 className="group px-2 py-1 no-underline"
               >
                 <div
