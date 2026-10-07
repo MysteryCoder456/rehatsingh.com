@@ -16,6 +16,7 @@ export type TimelineItemProps = {
   title?: string;
   subtitle?: string;
   position?: "first" | "last";
+  aside?: React.ReactNode;
   children: React.ReactNode;
 };
 
@@ -23,8 +24,23 @@ export function TimelineItem({
   title,
   subtitle,
   position,
+  aside,
   children,
 }: TimelineItemProps) {
+  const content = (
+    <>
+      {(title || subtitle) && (
+        <CardHeader className={aside ? "lg:px-0" : undefined}>
+          {title && <CardTitle>{title}</CardTitle>}
+          {subtitle && <CardDescription>{subtitle}</CardDescription>}
+        </CardHeader>
+      )}
+      <CardContent className={aside ? "lg:px-0" : undefined}>
+        {children}
+      </CardContent>
+    </>
+  );
+
   return (
     <div className="flex flex-row">
       <div className="flex-none flex flex-col justify-center relative items-center ms-4 mx-8">
@@ -40,13 +56,18 @@ export function TimelineItem({
       </div>
 
       <Card className="flex-1 my-6 min-w-0">
-        {(title || subtitle) && (
-          <CardHeader>
-            {title && <CardTitle>{title}</CardTitle>}
-            {subtitle && <CardDescription>{subtitle}</CardDescription>}
-          </CardHeader>
+        {aside ? (
+          <div className="lg:grid lg:grid-cols-3 lg:px-6">
+            <div className="flex min-w-0 flex-col gap-6 lg:col-span-2">
+              {content}
+            </div>
+            <div className="hidden items-center justify-center px-6 lg:flex">
+              {aside}
+            </div>
+          </div>
+        ) : (
+          content
         )}
-        <CardContent>{children}</CardContent>
       </Card>
     </div>
   );

@@ -114,12 +114,51 @@ export default function Home() {
 
         <Timeline>
           <TimelineItem
-            title="Al Masaood LLC"
-            subtitle="Software Developer Intern – Summer 2025 "
+            title="Zakher Marine International, ADNOC L&S"
+            subtitle="ICT Intern – Summer 2026"
             position="first"
+            aside={
+              <Image
+                src="/images/experience/zmi.png"
+                alt="ZMI Holdings' Logo"
+                width={1024}
+                height={283}
+                className="w-full h-auto object-contain invert dark:invert-0"
+              />
+            }
           >
             <div className="flex flex-row items-center">
-              <ul className="list-outside ms-3.5">
+              <ul className="list-outside ms-3.5 min-w-0 flex-1">
+                <li>
+                  Designed Azure Landing Zone architectures for ZMI's Azure
+                  workspace using Microsoft's Cloud Adoption Framework,
+                  including application landing zones and Data and AI
+                  integration
+                </li>
+                <li>
+                  Aligned proposed architecture with the company's Data Maturity
+                  Assessment and evaluated Snowflake and Databricks as
+                  consolidation targets for Unified Data Platform planning
+                </li>
+              </ul>
+            </div>
+          </TimelineItem>
+
+          <TimelineItem
+            title="Al Masaood LLC"
+            subtitle="Software Developer Intern – Summer 2025 "
+            aside={
+              <Image
+                src="/images/experience/masaood.svg"
+                alt="Al Masaood's Logo"
+                width={534}
+                height={655}
+                className="w-28 h-auto max-w-full object-contain invert dark:invert-0"
+              />
+            }
+          >
+            <div className="flex flex-row items-center">
+              <ul className="list-outside ms-3.5 min-w-0 flex-1">
                 <li>
                   Built and launched a React/SPFx timesheet tracker for 30+
                   technicians, saving 1,500+ sheets weekly through
@@ -135,14 +174,6 @@ export default function Home() {
                   API integration
                 </li>
               </ul>
-
-              <Image
-                src="/images/experience/masaood.png"
-                alt="Al Masaood's Logo"
-                width={630}
-                height={630}
-                className="max-w-[20%] h-auto object-cover ms-8 hidden lg:block"
-              />
             </div>
           </TimelineItem>
 
@@ -150,9 +181,18 @@ export default function Home() {
             title="Data Science for Sustainable Development"
             subtitle="Student Developer – Fall 2024"
             position="last"
+            aside={
+              <Image
+                src="/images/experience/dssd.png"
+                alt="Data Science for Sustainable Development's Logo"
+                width={512}
+                height={512}
+                className="w-28 h-auto max-w-full object-contain"
+              />
+            }
           >
             <div className="flex flex-row items-center">
-              <ul className="list-outside ms-3.5">
+              <ul className="list-outside ms-3.5 min-w-0 flex-1">
                 <li>
                   Built a statistics dashboard for the open-source{" "}
                   <a
@@ -175,14 +215,6 @@ export default function Home() {
                   science and professional development
                 </li>
               </ul>
-
-              <Image
-                src="/images/experience/dssd.png"
-                alt="Data Science for Sustainable Development's Logo"
-                width={512}
-                height={512}
-                className="max-w-[20%] h-auto object-cover ms-8 hidden lg:block"
-              />
             </div>
           </TimelineItem>
         </Timeline>
